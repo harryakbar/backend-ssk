@@ -74,7 +74,18 @@ func query(city string) (weatherData, error) {
 func main() {
 	http.HandleFunc("/hello", hello)
 
-	http.HandleFunc("/", hello)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		resp := make(map[string]string)
+		resp["message"] = "Hello World!"
+		jsonResp, err := json.Marshal(resp)
+		if err != nil {
+			log.Fatalf("Error happened in JSON marshal. Err: %s", err)
+		}
+		w.Write(jsonResp)
+		return
+	})
 
 	http.HandleFunc("/weather/", func(w http.ResponseWriter, r *http.Request) {
 		city := strings.SplitN(r.URL.Path, "/", 3)[2]
