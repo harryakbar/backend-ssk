@@ -82,6 +82,7 @@ func main() {
 			return
 		}
 
+		
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		json.NewEncoder(w).Encode(data)
