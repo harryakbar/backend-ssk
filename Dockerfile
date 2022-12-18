@@ -28,7 +28,5 @@ ENV GOTRACEBACK=single
 WORKDIR /weather
 COPY --from=build /app ./app
 COPY .apiConfig .apiConfig
-COPY index.html index.html
-COPY assets assets/
 
 ENTRYPOINT ["./app"]
